@@ -1,13 +1,10 @@
 # месяцы
-ha = {'январь': 31, 'февраль': 28, 'март': 31, 'апрель': 30, 'май': 31, 'июнь': 30, 'июль': 31,
-		'август': 31, 'сентябрь': 30, 'октябрь':31, 'ноябрь': 30, 'декабрь': 31}
-puts ha.select {|k,v| v == 31}
+ha = { 'январь': 31, 'февраль': 28, 'март': 31, 'апрель': 30, 'май': 31, 'июнь': 30, 'июль': 31,
+		'август': 31, 'сентябрь': 30, 'октябрь':31, 'ноябрь': 30, 'декабрь': 31 }
+puts ha.select {|k,v| v == 30}
 
 # с 10..100
-range = (10..100)
-for index in range
-	puts index
-end
+10.step(100,5) {|x| print x,', '}
 
 # фибоначи
 puts (1..10).inject( [0, 1] ) { | fib | fib << fib.last(2).inject(:+) } # [0, 1, adding_last + last, etc]
@@ -33,11 +30,11 @@ if yy%400 == 0
 end
 
 nom_index=(mm-1) # index
-puts days_in_mm = days[nom_index]
+days_in_mm = days[nom_index]
 left_days = days_in_mm - dd
 nom_dd=0
 (0..nom_index).each {|el| nom_dd+=days[el]} # (0..index).each {|el| 0 +=days[el]}
-puts nom_dd - left_days
+puts 'Ваш день по счету ' + (nom_dd - left_days).to_s + 'й'
 
 # sum
 to_break = ''
