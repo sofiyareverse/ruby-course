@@ -39,11 +39,13 @@ puts 'Ваш день по счету ' + (nom_dd - left_days).to_s + 'й'
 # sum
 to_break = ''
 all = []
+products = []
 bucket = 0
 puts 'Введите список покупок. Если Вы закончили, введите "стоп"'
 while to_break != 'стоп' do
 	puts 'Введите название товара'
 	product = gets.chomp
+	products << product
 	puts 'Введите стоимость товара за единицу'
 	one_quantity = gets.chomp.to_i
 	puts 'Введите количество единиц товара'
@@ -58,4 +60,5 @@ while to_break != 'стоп' do
 end
 
 puts 'В корзине: ' 
-puts bucket
+puts products.join(', ')
+puts 'на сумму: ' + bucket.to_s
