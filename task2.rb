@@ -25,15 +25,21 @@ yy = gets.chomp.to_i
 
 days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30]
 
-if yy%400 == 0
-	days[1] = 29
+if yy%4 == 0
+	if yy%100 == 0 && yy%400 == 0
+		days[1] = 29
+	elsif yy%100 != 0
+		days[1] = 29
+	end
+else
+	days[1] = 28
 end
 
-nom_index=(mm-1) # index
+nom_index=(mm-1)
 days_in_mm = days[nom_index]
 left_days = days_in_mm - dd
 nom_dd=0
-(0..nom_index).each {|el| nom_dd+=days[el]} # (0..index).each {|el| 0 +=days[el]}
+(0..nom_index).each {|el| nom_dd+=days[el]}
 puts 'Ваш день по счету ' + (nom_dd - left_days).to_s + 'й'
 
 # sum
