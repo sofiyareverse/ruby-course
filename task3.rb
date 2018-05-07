@@ -1,6 +1,6 @@
 class Station
 	attr_accessor :name
-	attr_reader :name, :trains, :station_trains
+	attr_reader :name, :trains
   def initialize(name)
   	@name = name
   	@trains = []
@@ -11,11 +11,7 @@ class Station
   end
 
   def remove_train(station, num)
-  	station.trains_on_station.delete_if { |t| t.number == num}
-  end
-
-  def trains_on_station
-  	@trains
+  	station.trains.delete_if { |t| t.number == num}
   end
 
   def trains_type_on_station(train_type)
@@ -25,20 +21,13 @@ end
 
 class Route
   attr_accessor :name
-  attr_reader :name, :station_select, :stations_list, :station_find
+  attr_reader :name, :station_select, :stations_list
 
-  def initialize(name)
+  def initialize(name, first_station, last_station)
   	@name = name
   	@stations_list = []
-  end
-
-  def add_new_route(first_station, last_station)
   	@stations_list << first_station
   	@stations_list << last_station
-  end
-
-  def stations_list
-  	@stations_list
   end
 
   def station_select(station_name)
@@ -72,7 +61,7 @@ end
 
 class Train
   attr_accessor :number, :type, :carriages
-  attr_reader :number, :type, :station_now
+  attr_reader :number, :type, :station_now, :speed
 
   def initialize(number, type, carriages)
   	@number = number
@@ -81,20 +70,16 @@ class Train
     @speed = 0
   end
 
-  def speed_now
-  	@speed
-  end
-
   def more_speed(amount)
   	@speed += amount
   end
 
   def less_speed(amount)
-  	@speed -= amount 
-  end
-
-  def carriage_list
-  	@carriages
+  	if @speed > 0
+  		@speed -= amount  
+  	else
+  		puts 'Error'
+  	end
   end
 
   def add_carriage(amount)
