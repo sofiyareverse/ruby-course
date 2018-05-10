@@ -29,7 +29,7 @@ class Train
   end
 
   def remove_carrige
-    remove_carriage! if @speed.zero?
+    remove_carrige! if @speed.zero?
   end
 
   def get_route(route)

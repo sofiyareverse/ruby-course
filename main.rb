@@ -71,8 +71,12 @@ while to_break != '9' do
 	elsif action == '7'
 		if cargo_train != nil || pass_train != nil
 			puts cargo_train.remove_carrige unless cargo_train.nil?
-			puts pass_train.remove_carrige unless pass_train.nil?
-			puts '-1'
+			puts c = pass_train.remove_carrige unless pass_train.nil?
+			if c != nil
+			  puts '-1'
+			elsif c == nil
+				puts 'Error. There is no carriges'
+			end
 		else
 			puts 'Error. Поезда не существует.' if cargo_train.nil? && pass_train.nil?
 		end
