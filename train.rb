@@ -20,6 +20,10 @@ class Train
     end
   end
 
+  def find(number)
+  	
+  end
+
   def add_carrige
     add_carrige! if @speed.zero?
   end

@@ -6,6 +6,10 @@ class Station
     @trains = []
   end
 
+  def self.all
+    self.map { |e| e }
+  end
+
   def add_train(train)
     @trains << train
   end
