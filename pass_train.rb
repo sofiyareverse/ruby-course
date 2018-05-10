@@ -8,7 +8,7 @@ class PassTrain < Train
     @carriges << PassCarrige.new
   end
 
-  def remove_carriage!
+  def remove_carrige!
     @carriges.pop
   end
 end

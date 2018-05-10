@@ -8,7 +8,7 @@ class CargoTrain < Train
     @carriges << CargoCarrige.new
   end
 
-  def remove_carriage!
+  def remove_carrige!
     @carriges.pop
   end
 end
