@@ -63,8 +63,9 @@ while to_break != '9' do
 		puts "Станции: #{ route.station_names }"
 	elsif action == '6'
 		if cargo_train != nil || pass_train != nil
-			cargo_train.add_carrige unless cargo_train.nil?
-			pass_train.add_carrige unless pass_train.nil?
+			carrige = Carrige.new
+			cargo_train.add_carrige(carrige) unless cargo_train.nil?
+			pass_train.add_carrige(carrige) unless pass_train.nil?
 			puts '+1'
 		else
 			puts 'Error. Поезда не существует.' if cargo_train.nil? && pass_train.nil?
