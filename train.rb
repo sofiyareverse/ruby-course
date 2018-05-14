@@ -1,11 +1,25 @@
+require_relative 'modules'
+
 class Train
-  attr_accessor :number, :carriges
-  attr_reader :number, :station_now, :speed, :carriges
+  attr_accessor :number, :station_now, :speed, :carriges, :brand
+  
+  @@train = []
+
+  def self.find(num)
+  	tr = @@train.select { |e| e.number == num }.first
+  	if tr == nil
+  		'Error.'
+  	else
+  		tr
+  	end
+  end
 
   def initialize(number)
     @number = number 
     @carriges = []
     @speed = 0
+    brand
+    @@train << self
   end
 
   def more_speed(amount)
@@ -20,12 +34,8 @@ class Train
     end
   end
 
-  def find(number)
-  	
-  end
-
-  def add_carrige
-    add_carrige! if @speed.zero?
+  def add_carrige(carrige)
+    add_carrige!(carrige) if @speed.zero?
   end
 
   def remove_carrige

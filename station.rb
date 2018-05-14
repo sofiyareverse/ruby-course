@@ -1,13 +1,19 @@
+require_relative 'modules'
+
 class Station
-  attr_accessor :name
-  attr_reader :name, :trains
+  include Main
+  attr_accessor :name, :trains
+
+  @@stations_list = []
+
+  def self.all
+    @@stations_list
+  end
+
   def initialize(name)
     @name = name
     @trains = []
-  end
-
-  def self.all
-    self.map { |e| e }
+    @@stations_list << self
   end
 
   def add_train(train)

@@ -1,4 +1,3 @@
-class PassCarrige < PassTrain
-	def initialize
-	end
+class PassCarrige < Carrige
+	include Company
 end
