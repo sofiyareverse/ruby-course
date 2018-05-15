@@ -7,7 +7,7 @@ class Station
   @@stations_list = []
 
   def self.all
-    @@stations_list
+    @@stations_list.map { |e| e.name }
   end
 
   def initialize(name)

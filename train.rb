@@ -5,6 +5,10 @@ class Train
 
   @@train = []
 
+  def self.all
+    @@train.map { |e| e.number }
+  end
+
   def self.find(num)
     tr = @@train.select { |e| e.number == num }.first
     if tr.nil?

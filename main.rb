@@ -43,45 +43,32 @@ while to_break != '9' do
     route.add_middle_station(middle_station)
     puts "Промежуточная станция: #{middle_station.name}"
   elsif action == '3'
-    puts 'Введите название станции, на которую хотите отправить поезд.'
+  	puts "Станции: #{Station.all}"
+    puts 'Введите название станцaии, на которую хотите отправить поезд.'
     station_now = gets.chomp
     station = route.station_select(station_now).first
-    if !cargo_train.nil?
-      cargo_train.go_to_station(route, station_now) unless cargo_train.nil?
-      station.add_train(cargo_train)
-      puts "Поезд на станции #{station_now}"
-    elsif !pass_train.nil?
-      pass_train.go_to_station(route, station_now) unless pass_train.nil?
-      station.add_train(pass_train)
-      puts "Поезд на станции #{station_now}"
-    else
-      puts 'Error. Поезда не существует.'
-    end
+    puts "Выберите из списка номер поезда, который хотите использовать: #{Train.all}."
+    puts 'Сейчас введите номер:'
+    train = Train.find(gets.chomp)
+    train.go_to_station(route, station_now)
+    station.add_train(train)
+    puts "Поезд на станции #{station_now}"
   elsif action == '4'
     puts "На станции сейчас: № #{station.trains_on_station}"
   elsif action == '5'
     puts "Станции: #{route.station_names}"
   elsif action == '6'
-    if !cargo_train.nil? || !pass_train.nil?
-      carrige = Carrige.new
-      cargo_train.add_carrige(carrige) unless cargo_train.nil?
-      pass_train.add_carrige(carrige) unless pass_train.nil?
-      puts '+1'
-    elsif cargo_train.nil? && pass_train.nil?
-      puts 'Error. Поезда не существует.'
-    end
+    puts "Выберите из списка номер поезда, который хотите использовать: #{Train.all}."
+    puts 'Сейчас введите номер:'
+    train = Train.find(gets.chomp)
+    carrige = Carrige.new
+    train.add_carrige(carrige)
+    puts '+1'
   elsif action == '7'
-    if !cargo_train.nil? || !pass_train.nil?
-      puts cargo_train.remove_carrige unless cargo_train.nil?
-      puts c = pass_train.remove_carrige unless pass_train.nil?
-      if !c.nil?
-        puts '-1'
-      elsif c.nil?
-        puts 'Error. There is no carriges'
-      end
-    elsif cargo_train.nil? && pass_train.nil?
-      puts 'Error. Поезда не существует.'
-    end
+  	puts "Выберите из списка номер поезда, который хотите использовать: #{Train.all}."
+    puts 'Сейчас введите номер:'
+    train = Train.find(gets.chomp)
+    puts cargo_train.remove_carrige
   else
     puts 'Чтоб продолжить, нажмите "enter". Если Вы закончили, введите "9".'
     to_break = gets.chomp
