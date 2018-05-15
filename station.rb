@@ -1,9 +1,19 @@
+require_relative 'modules'
+
 class Station
-  attr_accessor :name
-  attr_reader :name, :trains
+  include Main
+  attr_accessor :name, :trains
+
+  @@stations_list = []
+
+  def self.all
+    @@stations_list.map { |e| e.name }
+  end
+
   def initialize(name)
     @name = name
     @trains = []
+    @@stations_list << self
   end
 
   def add_train(train)
@@ -11,7 +21,7 @@ class Station
   end
 
   def remove_train(station, num)
-    station.trains.delete_if { |t| t.number == num}
+    station.trains.delete_if { |t| t.number == num }
   end
 
   def trains_on_station
@@ -19,6 +29,6 @@ class Station
   end
 
   def trains_type_on_station(train_type)
-    @trains.select {|e| e.type == train_type}.count
+    @trains.select { |e| e.type == train_type }.count
   end
 end

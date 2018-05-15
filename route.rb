@@ -1,6 +1,5 @@
 class Route
-  attr_accessor :name
-  attr_reader :name, :station_select, :stations_list
+  attr_accessor :name, :stations_list
 
   def initialize(name, first_station, last_station)
     @name = name
@@ -10,17 +9,17 @@ class Route
   end
 
   def station_select(station_name)
-    @station_select = @stations_list.select {|e| e.name == station_name}
+    @station_select = @stations_list.select { |e| e.name == station_name }
   end
 
   def station_names
-    @stations_list.map {|e| e.name }
+    @stations_list.map { |e| e.name }
   end
 
   def station_last(station_name)
-    ind = @stations_list.index{ |s| s.name == station_name }-1
+    ind = @stations_list.index { |s| s.name == station_name } - 1
     p 'Last: '
-    if ind == -1 
+    if ind == -1
       return nil
     else
       @stations_list[ind]
@@ -28,7 +27,7 @@ class Route
   end
 
   def station_next(station_name)
-    ind = @stations_list.index{ |s| s.name == station_name }+1
+    ind = @stations_list.index { |s| s.name == station_name } + 1
     p 'Next: '
     @stations_list[ind]
   end

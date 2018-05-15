@@ -1,4 +1,3 @@
-class CargoCarrige < CargoTrain
-	def initialize
-	end
+class CargoCarrige < Carrige
+  include Company
 end
