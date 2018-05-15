@@ -1,11 +1,10 @@
-require_relative 'modules'
+require_relative 'company'
 
 class Carrige
-	include Company
-	
-	attr_writer  :brand
+  include Company
+  attr_writer :brand
 
-	def initialize
-		brand
-	end
+  def initialize
+    brand
+  end
 end

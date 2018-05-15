@@ -21,7 +21,7 @@ class Station
   end
 
   def remove_train(station, num)
-    station.trains.delete_if { |t| t.number == num}
+    station.trains.delete_if { |t| t.number == num }
   end
 
   def trains_on_station
@@ -29,6 +29,6 @@ class Station
   end
 
   def trains_type_on_station(train_type)
-    @trains.select {|e| e.type == train_type}.count
+    @trains.select { |e| e.type == train_type }.count
   end
 end

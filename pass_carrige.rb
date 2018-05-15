@@ -1,3 +1,3 @@
 class PassCarrige < Carrige
-	include Company
+  include Company
 end

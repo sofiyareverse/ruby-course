@@ -1,15 +1,13 @@
 class PassTrain < Train
-	include Company
-  
-  private
+  include Company
 
   attr_writer :carriges
-  # add and remove protected from user action before checking if zero?
-	def add_carrige!(carrige)
-    @carriges << carrige
+
+  def add_carrige(carrige)
+    add_carrige!(carrige)
   end
 
-  def remove_carrige!
-    @carriges.pop
+  def remove_carrige
+    remove_carrige!
   end
 end

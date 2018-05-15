@@ -1,3 +1,3 @@
 class CargoCarrige < Carrige
-	include Company
+  include Company
 end
