@@ -1,4 +1,5 @@
 module Validator
+	SEATFORMAT = /^[0-9]*$/
 
   protected
 
@@ -14,6 +15,13 @@ module Validator
     raise ValidationError.new($!), "Name can't be nil" if obj.nil?
     raise ValidationError.new($!), 'Name should be at least 5 symbols' if obj.length < 5
     raise ValidationError.new($!), 'Name has invalid format' if obj !~ validating_format
+    true
+  end
+
+  def number_valid?(obj)
+    raise ValidationError.new($!), "Number can't be nil" if obj.nil?
+    raise ValidationError.new($!), 'Number should not be more than 3 symbols' if obj.length > 3
+    raise ValidationError.new($!), 'Number has invalid format' if obj !~ SEATFORMAT
     true
   end
 end

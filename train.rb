@@ -21,9 +21,12 @@ class Train
     end
   end
 
-  def initialize(number)
+  def initialize(number, obj)
     @number = number
     validate!(number)
+    place_or_seat(obj)
+    @free_seats = @seats
+    @taken_seats = 0
     @carriges = []
     @speed = 0
     brand
