@@ -1,15 +1,15 @@
 require_relative 'company'
+require_relative 'validation'
 
 class Train
   attr_accessor :number, :station_now, :speed, :carriges, :brand
-
-  NUMBER_FORMAT = /^[а-яa-z0-9]{3}-*[а-яa-z0-9]{2}$/i
+  include Validator
   
   @attempt = 0
   @@train = []
 
   def self.all
-    @@train.map { |e| e.number }
+    @@train.map(&:number)
   end
 
   def self.find(num)
@@ -22,8 +22,8 @@ class Train
   end
 
   def initialize(number)
-		@number = number
-		validate!
+    @number = number
+    validate!(number)
     @carriges = []
     @speed = 0
     brand
@@ -66,12 +66,5 @@ class Train
 
   def remove_carrige!
     @carriges.pop if @speed.zero?
-  end
-
-  def validate!
-    raise "Number can't be nil" if number.nil?
-    raise "Number should be at least 5 symbols" if number.length < 5
-    raise "Number has invalid format" if number !~ NUMBER_FORMAT
-    true
   end
 end

@@ -30,30 +30,30 @@ while to_break != '9' do
   puts '______________________________________________________'
   action = gets.chomp
   if action == '0'
-  	begin
-	    puts 'Введите номер грузового поезда'
-	    cargo_train = CargoTrain.new(gets.chomp)
-	    puts "Ваш номер поезда: #{cargo_train.number}"
-	  rescue => e
-	  	puts e.message
-	  	retry
-	  end
+    begin
+      puts 'Введите номер грузового поезда'
+      cargo_train = CargoTrain.new(gets.chomp)
+      puts "Ваш номер поезда: #{cargo_train.number}"
+    rescue => e
+      puts e.message
+      retry
+    end
   elsif action == '1'
     begin
-	    puts 'Введите номер пассажирского поезда'
-	    pass_train = PassTrain.new(gets.chomp)
-	    puts "Ваш номер поезда: #{cargo_train.number}"
-	  rescue => e
-	  	puts e.message
-	  	retry
-	  end
+      puts 'Введите номер пассажирского поезда'
+      pass_train = PassTrain.new(gets.chomp)
+      puts "Ваш номер поезда: #{pass_train.number}"
+    rescue => e
+      puts e.message
+      retry
+    end
   elsif action == '2'
     puts 'Введите имя промежуточной станции'
     middle_station = Station.new(gets.chomp)
     route.add_middle_station(middle_station)
     puts "Промежуточная станция: #{middle_station.name}"
   elsif action == '3'
-  	puts "Станции: #{Station.all}"
+    puts "Станции: #{Station.all}"
     puts 'Введите название станцaии, на которую хотите отправить поезд.'
     station_now = gets.chomp
     station = route.station_select(station_now).first
@@ -75,7 +75,7 @@ while to_break != '9' do
     train.add_carrige(carrige)
     puts '+1'
   elsif action == '7'
-  	puts "Выберите из списка номер поезда, который хотите использовать: #{Train.all}."
+    puts "Выберите из списка номер поезда, который хотите использовать: #{Train.all}."
     puts 'Сейчас введите номер:'
     train = Train.find(gets.chomp)
     puts cargo_train.remove_carrige

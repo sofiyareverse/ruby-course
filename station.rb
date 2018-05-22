@@ -1,17 +1,20 @@
 require_relative 'modules'
+require_relative 'validation'
 
 class Station
   include Main
+  include Validator
   attr_accessor :name, :trains
 
   @@stations_list = []
 
   def self.all
-    @@stations_list.map { |e| e.name }
+    @@stations_list.map(&:name)
   end
 
   def initialize(name)
     @name = name
+    validate!(name)
     @trains = []
     @@stations_list << self
   end
@@ -25,7 +28,7 @@ class Station
   end
 
   def trains_on_station
-    @trains.map { |e| e.number }.first
+    @trains.map(&:number).first
   end
 
   def trains_type_on_station(train_type)
