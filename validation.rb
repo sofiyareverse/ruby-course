@@ -1,5 +1,5 @@
 module Validator
-	SEATFORMAT = /^[0-9]*$/
+  SEATFORMAT = /^[0-9]*$/
 
   protected
 

@@ -1,13 +1,7 @@
 class PassTrain < Train
   include Company
-  attr_accessor :seats, :free_seats, :taken_seats, :carriges
-
-  def place_or_seat(seats)
-    @seats = seats.to_i
-    number_valid?(seats)
-    @free_seats = @seats
-		@taken_seats = 0
-  end
+  
+  attr_accessor :seats, :free_seats, :taken_seats
 
   def add_carrige(carrige)
     add_carrige!(carrige)
@@ -15,10 +9,5 @@ class PassTrain < Train
 
   def remove_carrige
     remove_carrige!
-  end
-
-  def take_seat
-    @free_seats -= 1 if @free_seats > 0
-    @taken_seats += 1 if @taken_seats < @seats
   end
 end

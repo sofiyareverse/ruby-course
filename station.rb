@@ -19,6 +19,10 @@ class Station
     @@stations_list << self
   end
 
+  def all_trains
+    @trains.each { |e| e }
+  end
+
   def add_train(train)
     @trains << train
   end

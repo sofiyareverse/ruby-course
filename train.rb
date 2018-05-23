@@ -9,7 +9,7 @@ class Train
   @@train = []
 
   def self.all
-    @@train.map(&:number)
+    @@train.map { |t| { number: t.number, type: t.class.name, carriges: t.carriges } }
   end
 
   def self.find(num)
@@ -21,16 +21,17 @@ class Train
     end
   end
 
-  def initialize(number, obj)
+  def initialize(number)
     @number = number
     validate!(number)
-    place_or_seat(obj)
-    @free_seats = @seats
-    @taken_seats = 0
     @carriges = []
     @speed = 0
     brand
     @@train << self
+  end
+
+  def all_carriges
+    @carriges.each { |e| e }
   end
 
   def more_speed(amount)

@@ -18,7 +18,7 @@ puts '______________________________________________________'
 
 action = ''
 to_break = ''
-while to_break != '9' do
+while to_break != '10' do
   puts '______________________________________________________'
   puts 'создать грузовой поезд, нажмите "0"'
   puts 'создать пассажирский поезд, нажмите "1"'
@@ -26,13 +26,16 @@ while to_break != '9' do
   puts 'поместить поезд на станцию, нажмите "3"'
   puts 'посмотреть список поездов на станции, нажмите "4"'
   puts 'посмотреть список станций, нажмите "5"'
-  puts 'поставьте "6", чтоб добавить вагон, поставьте "7",чтоб убрать вагон'
+  puts 'поставьте "6", чтоб добавить вагон (вывести список), поставьте "7",чтоб убрать вагон'
+  puts 'Занимать место или объем в вагоне: "8"'
+  puts 'Добавить новый тип вагона: "9"'
   puts '______________________________________________________'
   action = gets.chomp
   if action == '0'
     begin
       puts 'Введите номер грузового поезда'
-      cargo_train = CargoTrain.new(gets.chomp)
+      number = gets.chomp
+      cargo_train = CargoTrain.new(number)
       puts "Ваш номер поезда: #{cargo_train.number}"
     rescue => e
       puts e.message
@@ -41,7 +44,8 @@ while to_break != '9' do
   elsif action == '1'
     begin
       puts 'Введите номер пассажирского поезда'
-      pass_train = PassTrain.new(gets.chomp)
+      number = gets.chomp
+      pass_train = PassTrain.new(number)
       puts "Ваш номер поезда: #{pass_train.number}"
     rescue => e
       puts e.message
@@ -68,19 +72,58 @@ while to_break != '9' do
   elsif action == '5'
     puts "Станции: #{route.station_names}"
   elsif action == '6'
-    puts "Выберите из списка номер поезда, который хотите использовать: #{Train.all}."
-    puts 'Сейчас введите номер:'
-    train = Train.find(gets.chomp)
-    carrige = Carrige.new
-    train.add_carrige(carrige)
-    puts '+1'
+    puts 'посмотреть список вагонов - "1", добавить вагон к поезду - "2"'
+    act = gets.chomp
+    if act == '1'
+      puts "Список вагонов: #{Carrige.all}"
+    elsif act == '2'
+      puts "Выберите из списка номер поезда, который хотите использовать: #{Train.all}."
+      puts 'Сейчас введите номер:'
+      train = Train.find(gets.chomp)
+      puts "Список вагонов: #{Carrige.all}"
+      puts 'Введите номер вагона, который хотите прицепить: '
+      num = gets.chomp
+      train.add_carrige(Carrige.find(num))
+      puts '+1'
+    else
+      'Error.'
+    end
   elsif action == '7'
     puts "Выберите из списка номер поезда, который хотите использовать: #{Train.all}."
     puts 'Сейчас введите номер:'
     train = Train.find(gets.chomp)
     puts cargo_train.remove_carrige
+  elsif action == '8'
+    if train.class.name == 'PassTrain'
+      carrige.place_or_seat_amount do
+        puts "Общее количество мест: #{carrige.seats}"
+        puts "Свободно мест: #{carrige.free_seats}"
+        puts "Занято мест: #{carrige.taken_seats}"
+      end    
+      puts 'Введите количество необходимого места: ' 
+      carrige.take_place(gets.chomp).take_seat
+    elsif carrige.class.name == 'CargoTrain'
+      carrige.place_or_seat_amount do
+        puts "Общее количество мест: #{carrige.place}"
+        puts "Свободно мест: #{carrige.free_place}"
+        puts "Занято мест: #{carrige.taken_place}"
+      end
+      carrige.take_place(gets.chomp)
+    end
+  elsif action == '9'
+    puts 'Введите тип поезда: "1" - пассажирский, "2" - грузовой'
+    type = gets.chomp
+    if type == '1'
+      puts 'Сейчас введите кол-во мест в вагоне:'
+      carrige = PassCarrige.new(gets.chomp)
+    elsif type == '2'
+      puts 'Сейчас введите кол-во мест в вагоне:'
+      carrige = CargoCarrige.new(gets.chomp)
+    else
+      'Error.'
+    end
   else
-    puts 'Чтоб продолжить, нажмите "enter". Если Вы закончили, введите "9".'
+    puts 'Чтоб продолжить, нажмите "enter". Если Вы закончили, введите "10".'
     to_break = gets.chomp
   end
 end
