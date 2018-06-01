@@ -5,7 +5,6 @@ class PassCarrige < Carrige
 
   def place_or_seat(seats)
     @seats = seats.to_i
-    number_valid?(seats)
     @free_seats = @seats
     @taken_seats = 0
   end

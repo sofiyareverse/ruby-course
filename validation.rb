@@ -1,5 +1,4 @@
 module Validator
-  SEATFORMAT = /^[0-9]*$/
   DEFAULT_NUMBER_FORMAT = /^[a-zA-Z0-9]*$/i
 
   def self.included(base)

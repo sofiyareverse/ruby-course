@@ -12,7 +12,6 @@ class Station
     @@stations_list.map(&:name)
   end
 
-
   def valid?(obj)
     name_valid?(obj)
   end
@@ -25,7 +24,8 @@ class Station
   end
 
   def all_trains
-    @trains.each { |e| e }
+    puts 'На станции сейчас: '
+    yield
   end
 
   def add_train(train)
@@ -34,10 +34,6 @@ class Station
 
   def remove_train(station, num)
     station.trains.delete_if { |t| t.number == num }
-  end
-
-  def trains_on_station
-    @trains.map(&:number).first
   end
 
   def trains_type_on_station(train_type)

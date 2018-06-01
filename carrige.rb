@@ -8,6 +8,8 @@ class Carrige
   attr_accessor :number
   attr_writer :brand
 
+  TRAIN_NUMBER_FORMAT = /^[0-9]*$/
+
   @@carrige = []
 
   def self.all
@@ -25,6 +27,7 @@ class Carrige
 
   def initialize(obj)
     place_or_seat(obj)
+    name_format_error(obj)
     brand
     @@carrige << self
     @number = rand(5..30)

@@ -6,6 +6,7 @@ require_relative 'cargo_train'
 require_relative 'cargo_carrige'
 require_relative 'station'
 require_relative 'route'
+require 'byebug'
 
 puts 'Добаьте начальную и конечную станцию'
 puts 'Введите имя первой станции'
@@ -16,7 +17,6 @@ puts 'Добаьте название пути для дальнейшей ег�
 route = Route.new(gets.chomp, station_first, station_last)
 puts '______________________________________________________'
 
-action = ''
 to_break = ''
 while to_break != '10' do
   puts '______________________________________________________'
@@ -68,6 +68,7 @@ while to_break != '10' do
     train.go_to_station(route, station_now)
     station.add_train(train)
     puts "Поезд на станции #{station_now}"
+    station.all_trains { puts station.trains.map { |t| t.number } }
   when '4'
     puts "На станции сейчас: № #{station.trains_on_station}"
   when '5'
@@ -84,9 +85,15 @@ while to_break != '10' do
       train = Train.find(gets.chomp)
       puts "Список вагонов: #{Carrige.all}"
       puts 'Введите номер вагона, который хотите прицепить: '
-      num = gets.chomp
-      train.add_carrige(Carrige.find(num))
-      puts '+1'
+      num = gets.chomp.to_i
+      find_num = Carrige.find(num)
+      if find_num == 'Error.'
+        puts 'Carrige does not exist.'
+      else
+        train.add_carrige(find_num)
+        puts '+1'
+        train.all_carriges { puts train.carriges.map { |t| t.number } }
+      end
     else
       'Error.'
     end
@@ -95,16 +102,16 @@ while to_break != '10' do
     puts 'Сейчас введите номер:'
     train = Train.find(gets.chomp)
     puts cargo_train.remove_carrige
-  elsif action == '8'
+  when '8'
     if train.class.name == 'PassTrain'
       carrige.place_or_seat_amount do
         puts "Общее количество мест: #{carrige.seats}"
         puts "Свободно мест: #{carrige.free_seats}"
         puts "Занято мест: #{carrige.taken_seats}"
-      end    
-      puts 'Введите количество необходимого места: ' 
+      end
+      puts 'Введите количество необходимого места: '
       carrige.take_place(gets.chomp).take_seat
-    elsif carrige.class.name == 'CargoTrain'
+    elsif train.class.name == 'CargoTrain'
       carrige.place_or_seat_amount do
         puts "Общее количество мест: #{carrige.place}"
         puts "Свободно мест: #{carrige.free_place}"
@@ -112,13 +119,14 @@ while to_break != '10' do
       end
       carrige.take_place(gets.chomp)
     end
-  elsif action == '9'
+  when '9'
     puts 'Введите тип поезда: "1" - пассажирский, "2" - грузовой'
     type = gets.chomp
-    if type == '1'
+    case type
+    when '1'
       puts 'Сейчас введите кол-во мест в вагоне:'
       carrige = PassCarrige.new(gets.chomp)
-    elsif type == '2'
+    when '2'
       puts 'Сейчас введите кол-во мест в вагоне:'
       carrige = CargoCarrige.new(gets.chomp)
     else

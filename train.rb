@@ -36,7 +36,8 @@ class Train
   end
 
   def all_carriges
-    @carriges.each { |e| e }
+    p 'Вагоны в поезде:  '
+    yield
   end
 
   def more_speed(amount)
