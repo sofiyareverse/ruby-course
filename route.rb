@@ -4,9 +4,14 @@ class Route
   include Validator
   attr_accessor :name, :stations_list
 
+
+  def valid?(obj)
+    name_valid?(obj)
+  end
+
   def initialize(name, first_station, last_station)
     @name = name
-    validate!(name)
+    valid?(name)
     @stations_list = []
     @stations_list << first_station
     @stations_list << last_station
