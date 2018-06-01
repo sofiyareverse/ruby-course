@@ -12,9 +12,14 @@ class Station
     @@stations_list.map(&:name)
   end
 
+
+  def valid?(obj)
+    name_valid?(obj)
+  end
+
   def initialize(name)
     @name = name
-    validate!(name)
+    valid?(name)
     @trains = []
     @@stations_list << self
   end

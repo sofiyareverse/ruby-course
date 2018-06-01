@@ -31,7 +31,8 @@ while to_break != '10' do
   puts 'Добавить новый тип вагона: "9"'
   puts '______________________________________________________'
   action = gets.chomp
-  if action == '0'
+  case action
+  when '0'
     begin
       puts 'Введите номер грузового поезда'
       number = gets.chomp
@@ -41,7 +42,7 @@ while to_break != '10' do
       puts e.message
       retry
     end
-  elsif action == '1'
+  when '1'
     begin
       puts 'Введите номер пассажирского поезда'
       number = gets.chomp
@@ -51,12 +52,12 @@ while to_break != '10' do
       puts e.message
       retry
     end
-  elsif action == '2'
+  when '2'
     puts 'Введите имя промежуточной станции'
     middle_station = Station.new(gets.chomp)
     route.add_middle_station(middle_station)
     puts "Промежуточная станция: #{middle_station.name}"
-  elsif action == '3'
+  when '3'
     puts "Станции: #{Station.all}"
     puts 'Введите название станцaии, на которую хотите отправить поезд.'
     station_now = gets.chomp
@@ -67,16 +68,17 @@ while to_break != '10' do
     train.go_to_station(route, station_now)
     station.add_train(train)
     puts "Поезд на станции #{station_now}"
-  elsif action == '4'
+  when '4'
     puts "На станции сейчас: № #{station.trains_on_station}"
-  elsif action == '5'
+  when '5'
     puts "Станции: #{route.station_names}"
-  elsif action == '6'
+  when '6'
     puts 'посмотреть список вагонов - "1", добавить вагон к поезду - "2"'
     act = gets.chomp
-    if act == '1'
+    case act
+    when '1'
       puts "Список вагонов: #{Carrige.all}"
-    elsif act == '2'
+    when '2'
       puts "Выберите из списка номер поезда, который хотите использовать: #{Train.all}."
       puts 'Сейчас введите номер:'
       train = Train.find(gets.chomp)
@@ -88,7 +90,7 @@ while to_break != '10' do
     else
       'Error.'
     end
-  elsif action == '7'
+  when '7'
     puts "Выберите из списка номер поезда, который хотите использовать: #{Train.all}."
     puts 'Сейчас введите номер:'
     train = Train.find(gets.chomp)
