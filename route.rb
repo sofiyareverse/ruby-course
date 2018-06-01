@@ -1,8 +1,17 @@
+require_relative 'validation'
+
 class Route
+  include Validator
   attr_accessor :name, :stations_list
+
+
+  def valid?(obj)
+    name_valid?(obj)
+  end
 
   def initialize(name, first_station, last_station)
     @name = name
+    valid?(name)
     @stations_list = []
     @stations_list << first_station
     @stations_list << last_station
@@ -13,7 +22,7 @@ class Route
   end
 
   def station_names
-    @stations_list.map { |e| e.name }
+    @stations_list.map(&:name)
   end
 
   def station_last(station_name)

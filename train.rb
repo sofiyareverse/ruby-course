@@ -1,12 +1,16 @@
 require_relative 'company'
+require_relative 'validation'
 
 class Train
   attr_accessor :number, :station_now, :speed, :carriges, :brand
-
+  include Validator
+  TRAIN_NUMBER_FORMAT = /^[а-яa-z0-9]{3}-*[а-яa-z0-9]{2}$/i
+  
+  @attempt = 0
   @@train = []
 
   def self.all
-    @@train.map { |e| e.number }
+    @@train.map(&:number)
   end
 
   def self.find(num)
@@ -18,8 +22,13 @@ class Train
     end
   end
 
+  def valid?(obj)
+    name_valid?(obj)
+  end
+
   def initialize(number)
     @number = number
+    valid?(number)
     @carriges = []
     @speed = 0
     brand
