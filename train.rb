@@ -10,7 +10,7 @@ class Train
   @@train = []
 
   def self.all
-    @@train.map(&:number)
+    @@train.map { |t| { number: t.number, type: t.class.name, carriges: t.carriges } }
   end
 
   def self.find(num)
@@ -33,6 +33,11 @@ class Train
     @speed = 0
     brand
     @@train << self
+  end
+
+  def all_carriges
+    p 'Вагоны в поезде:  '
+    yield
   end
 
   def more_speed(amount)

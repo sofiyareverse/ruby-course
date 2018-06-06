@@ -1,7 +1,7 @@
 class CargoTrain < Train
   include Company
 
-  attr_writer :carriges
+  attr_accessor :carriges
 
   def add_carrige(carrige)
     add_carrige!(carrige)
