@@ -6,14 +6,18 @@ module Main
 end
 
 module InstanceCounter
+  class << self
+    attr_reader :instances
+  end
+
   def instances
-    self.register_instance
+    register_instance
   end
 
   protected
 
   def register_instance
-    @@instances ||= 0
-    @@instances += 1
+    self.class.instances ||= 0
+    self.class.instances += 1
   end
 end

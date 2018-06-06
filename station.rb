@@ -6,10 +6,18 @@ class Station
   include Validator
   attr_accessor :name, :trains
 
-  @@stations_list = []
+  @stations_list = []
+
+  class << self
+    attr_reader :stations_list
+  end
+
+  def stations_list
+    self.class.stations_list
+  end
 
   def self.all
-    @@stations_list.map(&:name)
+    @stations_list.map(&:name)
   end
 
   def valid?(obj)
@@ -20,7 +28,7 @@ class Station
     @name = name
     valid?(name)
     @trains = []
-    @@stations_list << self
+    Station.stations_list << self
   end
 
   def all_trains

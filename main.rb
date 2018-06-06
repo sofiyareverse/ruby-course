@@ -18,17 +18,17 @@ route = Route.new(gets.chomp, station_first, station_last)
 puts '______________________________________________________'
 
 to_break = ''
-while to_break != '10' do
+while to_break != '10'
   puts '______________________________________________________'
   puts 'создать грузовой поезд, нажмите "0"'
   puts 'создать пассажирский поезд, нажмите "1"'
   puts 'добавить промежуточную станцию, нажмите "2"'
   puts 'поместить поезд на станцию, нажмите "3"'
   puts 'посмотреть список поездов на станции, нажмите "4"'
-  puts 'посмотреть список станций, нажмите "5"'
+  puts 'Добавить новый тип вагона: "5"'
   puts 'поставьте "6", чтоб добавить вагон (вывести список), поставьте "7",чтоб убрать вагон'
   puts 'Занимать место или объем в вагоне: "8"'
-  puts 'Добавить новый тип вагона: "9"'
+  puts 'посмотреть список станций, нажмите "9"'
   puts '______________________________________________________'
   action = gets.chomp
   case action
@@ -38,7 +38,7 @@ while to_break != '10' do
       number = gets.chomp
       cargo_train = CargoTrain.new(number)
       puts "Ваш номер поезда: #{cargo_train.number}"
-    rescue => e
+    rescue StandardError => e
       puts e.message
       retry
     end
@@ -48,7 +48,7 @@ while to_break != '10' do
       number = gets.chomp
       pass_train = PassTrain.new(number)
       puts "Ваш номер поезда: #{pass_train.number}"
-    rescue => e
+    rescue StandardError => e
       puts e.message
       retry
     end
@@ -68,11 +68,22 @@ while to_break != '10' do
     train.go_to_station(route, station_now)
     station.add_train(train)
     puts "Поезд на станции #{station_now}"
-    station.all_trains { puts station.trains.map { |t| t.number } }
+    station.all_trains { puts station.trains.map(&:number) }
   when '4'
     puts "На станции сейчас: № #{station.trains_on_station}"
   when '5'
-    puts "Станции: #{route.station_names}"
+    puts 'Введите тип поезда: "1" - пассажирский, "2" - грузовой'
+    type = gets.chomp
+    case type
+    when '1'
+      puts 'Сейчас введите кол-во мест в вагоне:'
+      carrige = PassCarrige.new(gets.chomp)
+    when '2'
+      puts 'Сейчас введите кол-во мест в вагоне:'
+      carrige = CargoCarrige.new(gets.chomp)
+    else
+      'Error.'
+    end
   when '6'
     puts 'посмотреть список вагонов - "1", добавить вагон к поезду - "2"'
     act = gets.chomp
@@ -92,7 +103,7 @@ while to_break != '10' do
       else
         train.add_carrige(find_num)
         puts '+1'
-        train.all_carriges { puts train.carriges.map { |t| t.number } }
+        train.all_carriges { puts train.carriges.map(&:number) }
       end
     else
       'Error.'
@@ -120,18 +131,7 @@ while to_break != '10' do
       carrige.take_place(gets.chomp)
     end
   when '9'
-    puts 'Введите тип поезда: "1" - пассажирский, "2" - грузовой'
-    type = gets.chomp
-    case type
-    when '1'
-      puts 'Сейчас введите кол-во мест в вагоне:'
-      carrige = PassCarrige.new(gets.chomp)
-    when '2'
-      puts 'Сейчас введите кол-во мест в вагоне:'
-      carrige = CargoCarrige.new(gets.chomp)
-    else
-      'Error.'
-    end
+    puts "Станции: #{route.station_names}"
   else
     puts 'Чтоб продолжить, нажмите "enter". Если Вы закончили, введите "10".'
     to_break = gets.chomp
