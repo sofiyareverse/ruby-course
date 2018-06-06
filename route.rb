@@ -4,7 +4,6 @@ class Route
   include Validator
   attr_accessor :name, :stations_list
 
-
   def valid?(obj)
     name_valid?(obj)
   end
@@ -28,11 +27,7 @@ class Route
   def station_last(station_name)
     ind = @stations_list.index { |s| s.name == station_name } - 1
     p 'Last: '
-    if ind == -1
-      return nil
-    else
-      @stations_list[ind]
-    end
+    ind == -1 ? nil : @stations_list[ind]
   end
 
   def station_next(station_name)

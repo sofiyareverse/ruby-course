@@ -1,7 +1,7 @@
 class PassTrain < Train
   include Company
 
-  attr_writer :carriges
+  attr_accessor :seats, :free_seats, :taken_seats
 
   def add_carrige(carrige)
     add_carrige!(carrige)

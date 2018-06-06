@@ -29,8 +29,8 @@ module Validator
   end
 end
 
-class NameExistError < StandardError; end
+NameExistError = Class.new(StandardError)
 
-class NameSizeError < StandardError; end
+NameSizeError = Class.new(StandardError)
 
-class NameFormatError < StandardError; end
+NameFormatError = Class.new(StandardError)

@@ -5,34 +5,43 @@ class Train
   attr_accessor :number, :station_now, :speed, :carriges, :brand
   include Validator
   TRAIN_NUMBER_FORMAT = /^[а-яa-z0-9]{3}-*[а-яa-z0-9]{2}$/i
-  
+
   @attempt = 0
-  @@train = []
+  @train = []
+
+  class << self
+    attr_reader :train
+  end
+
+  def train
+    self.class.train
+  end
 
   def self.all
-    @@train.map(&:number)
+    @train.map { |t| { number: t.number, type: t.class.name, carriges: t.carriges } }
   end
 
   def self.find(num)
-    tr = @@train.select { |e| e.number == num }.first
-    if tr.nil?
-      'Error.'
-    else
-      tr
-    end
+    tr = @train.select { |e| e.number == num }.first
+    tr.nil? ? 'Error.' : tr
   end
 
   def valid?(obj)
     name_valid?(obj)
   end
 
-  def initialize(number)
+  def initialize(number, options = {})
     @number = number
     valid?(number)
     @carriges = []
-    @speed = 0
+    @speed = options[:speed] || 0
     brand
-    @@train << self
+    Train.train << self
+  end
+
+  def all_carriges
+    p 'Вагоны в поезде:  '
+    yield
   end
 
   def more_speed(amount)
@@ -40,11 +49,7 @@ class Train
   end
 
   def less_speed(amount)
-    if @speed > 0
-      @speed -= amount
-    else
-      puts 'Error'
-    end
+    @speed > 0 ? @speed -= amount : 'Error'
   end
 
   def get_route(route)
