@@ -35,9 +35,9 @@ class Train
     @@train << self
   end
 
-  def all_carriges
+  def all_carriges(train)
     p 'Вагоны в поезде:  '
-    yield
+    train.carriges.map { |c| yield(c) }
   end
 
   def more_speed(amount)

@@ -23,9 +23,9 @@ class Station
     @@stations_list << self
   end
 
-  def all_trains(trains)
+  def all_trains(station)
     puts 'На станции сейчас: '
-    yield(trains)
+    station.trains.map { |t| yield(t) }
   end
 
   def add_train(train)
@@ -34,10 +34,6 @@ class Station
 
   def remove_train(station, num)
     station.trains.delete_if { |t| t.number == num }
-  end
-
-  def trains_on_station
-    @trains.map(&:number)
   end
 
   def trains_type_on_station(train_type)

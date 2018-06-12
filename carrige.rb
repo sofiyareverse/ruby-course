@@ -19,7 +19,7 @@ class Carrige
   def self.find(num)
     carrige = @@carrige.select { |e| e.number == num }.first
     if carrige.nil?
-      'Error.'
+      nil
     else
       carrige
     end

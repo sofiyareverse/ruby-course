@@ -68,7 +68,7 @@ while to_break != '10' do
     train.go_to_station(route, station_now)
     station.add_train(train)
     puts "Поезд на станции #{station_now}"
-    station.all_trains(station.trains_on_station) { |c| puts c }
+    station.all_trains(station) { |t| puts t }
   when '4'
     puts "На станции сейчас: № #{station.trains_on_station}"
   when '5'
@@ -87,12 +87,12 @@ while to_break != '10' do
       puts 'Введите номер вагона, который хотите прицепить: '
       num = gets.chomp.to_i
       find_num = Carrige.find(num)
-      if find_num == 'Error.'
+      if find_num.nil?
         puts 'Carrige does not exist.'
       else
         train.add_carrige(find_num)
         puts '+1'
-        train.all_carriges { |t| puts @carriges }
+        train.all_carriges(train) { |c| puts c }
       end
     else
       'Error.'
